@@ -17,7 +17,7 @@ type Search struct {
 func (s *Search) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	request := searchRequest{}
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil || len(request.Query) < 1 {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
